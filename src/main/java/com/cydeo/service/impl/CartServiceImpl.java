@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.cydeo.service.impl.ProductServiceImpl.PRODUCT_LIST;
 
@@ -25,7 +26,9 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartItem> retrieveCartDetail(UUID cartId) {
         // todo implement method using stream
-        return new ArrayList<>();
+
+        return retrieveCartList().stream().filter(cart -> cart.getId().equals(cartId))
+                .findAny().get().getCartItemList();
     }
 
     @Override
